@@ -38,6 +38,13 @@ export async function trialEndEmailWorker() {
   };
 
   while (true) {
+    // Don't email people in the middle of the night.
+    const hour = new Date().getHours();
+    if (hour < 8 || hour >= 20) {
+      await sleep(pauseMs);
+      continue;
+    }
+
     // 1) Pick a batch of candidates
     const candidates = await prisma.user.findMany({
       where: {
