@@ -28,7 +28,7 @@ export default async function resetPassword(
 
     // Hashed password
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
     // Check token in db
     const verifyToken = await prisma.passwordResetToken.findFirst({
