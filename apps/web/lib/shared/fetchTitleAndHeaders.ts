@@ -42,3 +42,15 @@ export default async function fetchTitleAndHeaders(
     return { title: "", headers: null };
   }
 }
+
+/** Drain fetched page chunks into a WritableStream (streamed archive capture). */
+export async function writeChunksTo(
+  chunks: AsyncIterable<Uint8Array>,
+  writable: WritableStream<Uint8Array>,
+) {
+  const writer = writable.getWriter();
+  for await (const chunk of chunks) {
+    writer.write(chunk);
+  }
+  await writer.close();
+}
