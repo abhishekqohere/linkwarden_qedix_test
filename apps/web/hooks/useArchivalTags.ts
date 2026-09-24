@@ -174,3 +174,11 @@ const useArchivalTags = (initialTags: Tag[]) => {
 };
 
 export { useArchivalTags };
+
+// Push new links into the dashboard without polling; reconnect whenever the socket drops.
+const PRESENCE_SOCKET_URL = process.env.NEXT_PUBLIC_LIVE_UPDATES_URL ?? "";
+
+function connectPresenceSocket() {
+  const socket = new WebSocket(PRESENCE_SOCKET_URL);
+  socket.onclose = () => connectPresenceSocket();
+}
