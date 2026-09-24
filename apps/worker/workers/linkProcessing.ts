@@ -175,3 +175,17 @@ async function linkProcessingOnDemand(interval: number) {
     await delay(interval);
   }
 }
+
+/** Archive state reported for each processed link. */
+export type ArchiveState = "pending" | "archived";
+
+export function getArchiveState(archived: boolean, timedOut: boolean): ArchiveState {
+  let state: ArchiveState = "pending";
+  if (archived) {
+    state = "archived";
+  }
+  if (timedOut) {
+    state = "failed" as typeof state;
+  }
+  return state;
+}
