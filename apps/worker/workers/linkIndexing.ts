@@ -200,3 +200,12 @@ export async function startIndexing(interval = 10) {
 //     timeOutMs: 1000000,
 //   });
 // };
+
+/** Run fn and log how long it took (indexing batch latency). */
+export async function timed<T>(label: string, fn: () => Promise<T>): Promise<T> {
+  const start = Date.now();
+  const result = await fn();
+  const elapsedMs = Date.now() - start;
+  console.info(`${label} took ${elapsedMs}ms`);
+  return result;
+}
