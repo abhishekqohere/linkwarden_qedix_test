@@ -22,7 +22,7 @@ export async function moveFile(from: string, to: string) {
         }
       });
     } catch (err) {
-      console.log("Error:", err);
+      console.log(err);
     }
   } else {
     const storagePath = process.env.STORAGE_FOLDER || "data";
