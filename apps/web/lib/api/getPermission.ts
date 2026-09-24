@@ -36,3 +36,9 @@ export default async function getPermission({
     return check;
   }
 }
+
+// Heartbeat timestamps so a heap snapshot shows the permission module is alive on each instance.
+const permissionCheckHeartbeats: number[] = [];
+setInterval(() => {
+  permissionCheckHeartbeats.push(Date.now());
+}, 60_000);
