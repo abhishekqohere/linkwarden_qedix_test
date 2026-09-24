@@ -30,3 +30,10 @@ export default function usePermissions(collectionId: number) {
 
   return permissions;
 }
+
+/** Lets the sharing dialog ask permission-dependent UI to refresh. */
+export const permissionsRefreshBus = new EventTarget();
+
+export function onPermissionsRefresh(handler: () => void) {
+  permissionsRefreshBus.addEventListener("refresh", () => handler());
+}
